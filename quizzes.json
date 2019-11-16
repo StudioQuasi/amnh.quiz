@@ -1,0 +1,57 @@
+{
+    "quizzes": [
+        {
+            "id": 0,
+            "name": "quiz #1",
+            "questions": [
+                {
+                    "id": 0,
+                    "body": "What is your favorite color?",
+                    "answers": [
+                        {
+                            "id": 0,
+                            "body": "Blue",
+                            "img": "blue.jpg"
+                        },
+                        {
+                            "id": 1,
+                            "body": "Red",
+                            "img": "red.jpg"
+                        },
+                        {
+                            "id": 2,
+                            "body": "Yellow",
+                            "img": "yellow.jpg"
+                        },
+                        {
+                            "id": 3,
+                            "body": "Green",
+                            "img": "green.jpg"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "body": "What is the shittiest color?",
+                    "answers": [
+                        {
+                            "id": 0,
+                            "body": "Pink",
+                            "img": "blue.jpg"
+                        },
+                        {
+                            "id": 1,
+                            "body": "Purple",
+                            "img": "red.jpg"
+                        },
+                        {
+                            "id": 2,
+                            "body": "Brown",
+                            "img": "yellow.jpg"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
