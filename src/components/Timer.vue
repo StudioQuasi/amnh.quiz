@@ -1,9 +1,20 @@
 <template>
-  <div>Timer</div>
+  <div>
+    <h3>Timer: {{ state.timer }}</h3>
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    state: {
+      type: Object
+    }
+  },
+  data: function() {
+    return {}
+  }
+}
 </script>
 
 <style></style>

@@ -1,20 +1,21 @@
-import axios from "axios";
+import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: `http://localhost:3000`,
-  withCredentials: false, // This is the default
+  baseURL: 'http://localhost:3000',
+  withCredentials: false,
   headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json"
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
   }
-});
+})
 
 export default {
   getQuestions() {
-    return apiClient.get("/quizzes");
+    return apiClient.get('/quizzes')
   },
 
   selectQuestion(id) {
+    console.log(id)
     //return apiClient.get('/events/' + id)
   }
-};
+}

@@ -1,36 +1,36 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-import Question from "../views/Question.vue";
-import Waiting from "../views/Waiting.vue";
-import Home from "../views/Home.vue";
+import Quiz from '../views/Quiz.vue'
+import Waiting from '../views/Waiting.vue'
+import Home from '../views/Home.vue'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/",
-    name: "home",
+    path: '/',
+    name: 'home',
     component: Home
   },
   {
-    path: "/waiting",
-    name: "waiting",
+    path: '/waiting',
+    name: 'waiting',
     component: Waiting,
     props: true
   },
   {
-    path: "/question/:id",
-    name: "question-show",
-    component: Question,
+    path: '/quiz/:quizId',
+    name: 'question-show',
+    component: Quiz,
     props: true
   }
-];
+]
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes
-});
+})
 
-export default router;
+export default router

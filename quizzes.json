@@ -1,57 +1,57 @@
 {
-    "quizzes": [
+  "quizzes": [
+    {
+      "id": 0,
+      "name": "quiz #1",
+      "questions": [
         {
-            "id": 0,
-            "name": "quiz #1",
-            "questions": [
-                {
-                    "id": 0,
-                    "body": "What is your favorite color?",
-                    "answers": [
-                        {
-                            "id": 0,
-                            "body": "Blue",
-                            "img": "blue.jpg"
-                        },
-                        {
-                            "id": 1,
-                            "body": "Red",
-                            "img": "red.jpg"
-                        },
-                        {
-                            "id": 2,
-                            "body": "Yellow",
-                            "img": "yellow.jpg"
-                        },
-                        {
-                            "id": 3,
-                            "body": "Green",
-                            "img": "green.jpg"
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "body": "What is the shittiest color?",
-                    "answers": [
-                        {
-                            "id": 0,
-                            "body": "Pink",
-                            "img": "blue.jpg"
-                        },
-                        {
-                            "id": 1,
-                            "body": "Purple",
-                            "img": "red.jpg"
-                        },
-                        {
-                            "id": 2,
-                            "body": "Brown",
-                            "img": "yellow.jpg"
-                        }
-                    ]
-                }
-            ]
+          "id": 0,
+          "body": "which is your favorite cat?",
+          "answers": [
+            {
+              "id": 0,
+              "body": "This is cat selection #1.",
+              "img": "https://www.humanesociety.org/sites/default/files/styles/1441x612/public/2018/08/kitten-440379.jpg"
+            },
+            {
+              "id": 1,
+              "body": "This is another cat that you can choose from.",
+              "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/An_up-close_picture_of_a_curious_male_domestic_shorthair_tabby_cat.jpg/1280px-An_up-close_picture_of_a_curious_male_domestic_shorthair_tabby_cat.jpg"
+            },
+            {
+              "id": 2,
+              "body": "How about choosing this Scottish Fold ?",
+              "img": "https://cdn.britannica.com/s:800x1000/67/197567-131-1645A26E/Scottish-fold-cat-feline.jpg"
+            },
+            {
+              "id": 3,
+              "body": "And take a look at this guy.",
+              "img": "https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "body": "Which is the best dog?",
+          "answers": [
+            {
+              "id": 0,
+              "body": "Pink",
+              "img": "blue.jpg"
+            },
+            {
+              "id": 1,
+              "body": "Purple",
+              "img": "red.jpg"
+            },
+            {
+              "id": 2,
+              "body": "Brown",
+              "img": "yellow.jpg"
+            }
+          ]
         }
-    ]
+      ]
+    }
+  ]
 }
