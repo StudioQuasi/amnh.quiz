@@ -22,8 +22,7 @@ body {
 }
 #app {
   box-sizing: border-box;
-  width: 500px;
-  padding: 0 20px 20px;
+  padding: 0px;
   margin: 0 auto;
 }
 hr {
@@ -99,6 +98,12 @@ small {
 .-shadow {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.13);
 }
+
+ppolygon {
+  fill: #42b983;
+  opacity: 0.75;
+}
+
 .badge {
   display: inline-flex;
   height: 26px;

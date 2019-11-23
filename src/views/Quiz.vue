@@ -1,11 +1,50 @@
 <template>
   <div>
-    <h2>Quiz: {{ quiz.name }} ({{ quiz.id }})</h2>
-    <h3>{{ this.questionIndex + 1 }}/{{ this.quiz.questions.length }}</h3>
+    <div v-if="$route.name == 'host-show'">
+      <h2>Host Screen: {{ quiz.name }}</h2>
 
-    <button v-on:click="nextQuestion">
-      Next Question
-    </button>
+      <template>
+        <video-player
+          class="video-player-box"
+          ref="videoPlayer"
+          :options="playerOptions"
+          :playsinline="true"
+          customEventName="customstatechangedeventname"
+          @play="onPlayerPlay($event)"
+          @pause="onPlayerPause($event)"
+          @ended="onPlayerEnded($event)"
+          @waiting="onPlayerWaiting($event)"
+          @playing="onPlayerPlaying($event)"
+          @loadeddata="onPlayerLoadeddata($event)"
+          @timeupdate="onPlayerTimeupdate($event)"
+          @canplay="onPlayerCanplay($event)"
+          @canplaythrough="onPlayerCanplaythrough($event)"
+          @statechanged="playerStateChanged($event)"
+          @ready="playerReadied"
+        >
+        </video-player>
+
+        <!--vimeo-player
+          ref="player"
+          :video-id="videoID"
+          @ready="onReady"
+          :player-height="height"
+        ></vimeo-player-->
+      </template>
+    </div>
+
+    <div v-else>
+      <h2>Question: {{ quiz.name }} ({{ quiz.id }})</h2>
+      <h3>{{ this.questionIndex + 1 }}/{{ this.quiz.questions.length }}</h3>
+      <button v-on:click="nextQuestion">Next Question</button>
+    </div>
+
+    <PolygonSet
+      :pNum="pNum"
+      :pSize="50"
+      :width="300"
+      :height="300"
+    ></PolygonSet>
 
     <Timer v-bind:state="this.quizState"></Timer>
 
@@ -18,25 +57,58 @@ import Timer from '@/components/Timer.vue'
 import Question from '@/components/Question.vue'
 import QuizService from '@/services/QuizService.js'
 import Pusher from 'pusher-js'
+import PolygonSet from '@/components/PolygonSet.vue'
+
+import 'video.js/dist/video-js.css'
+
+import { EventBus } from '@/event-bus.js'
 
 export default {
   props: ['quizId'],
   components: {
     Question,
-    Timer // change to our component
+    Timer,
+    PolygonSet
   },
   data() {
     return {
+      pNum: 5,
+      pSize: 100,
+
+      pcolor2: 'blue',
+      psize2: 50,
+
       questionIndex: 0,
       question: Object,
-      quiz: Object,
-      quizState: Object
+      quiz: { questions: [] },
+      quizState: Object,
+      userScreenName: Number,
+      userID: Number,
+
+      videoID: '224876461',
+      height: 2000,
+      options: {},
+      playerReady: false,
+
+      playerOptions: {
+        // videojs options
+        muted: true,
+        language: 'en',
+        playbackRates: [0.7, 1.0, 1.5, 2.0],
+        sources: [
+          {
+            type: 'video/mp4',
+            src:
+              'https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm'
+          }
+        ],
+        poster: '/static/images/author.jpg'
+      }
     }
   },
   methods: {
     handleServer(data) {
       this.quizState = data
-      console.log('timer > ' + data.timer)
     },
     nextQuestion() {
       console.log('The next question')
@@ -52,6 +124,16 @@ export default {
       pusher.bind('next', data => {
         this.handleServer(data)
       })
+    },
+    onReady() {
+      this.playerReady = true
+      this.play()
+    },
+    play() {
+      this.$refs.player.play()
+    },
+    pause() {
+      this.$refs.player.pause()
     }
   },
   computed: {
@@ -61,15 +143,17 @@ export default {
   },
   // When this is first created
   created() {
-    console.log('** STARTING')
-
     this.subscribe()
 
     QuizService.getQuestions()
       .then(response => {
-        for (var quizIndex = 0; quizIndex < response.data.length; quizIndex++) {
-          if (response.data[quizIndex].id == this.quizId) {
-            this.quiz = response.data[quizIndex]
+        for (
+          var quizIndex = 0;
+          quizIndex < response.data.quizzes.length;
+          quizIndex++
+        ) {
+          if (response.data.quizzes[quizIndex].id == this.quizId) {
+            this.quiz = response.data.quizzes[quizIndex]
             this.question = this.quiz.questions[this.questionIndex]
           }
         }
@@ -77,6 +161,20 @@ export default {
       .catch(error => {
         console.log('There was an error:', error.response)
       })
+
+    /*
+    QuizService.createUser()
+      .then(response => {
+        console.log('Create User : ' + response.data)
+      })
+      .catch(error => {
+        console.log('There was an error:', error.response)
+      })
+*/
+    //Receive broadcast of answer on Event Bus
+    EventBus.$on('broadcast-answer', qid =>
+      QuizService.submitQuestion(qid, this.userID, this.quiz.id, this.question)
+    )
   }
 }
 </script>

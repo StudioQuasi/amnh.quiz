@@ -3,16 +3,11 @@ import VueRouter from 'vue-router'
 
 import Quiz from '../views/Quiz.vue'
 import Waiting from '../views/Waiting.vue'
-import Home from '../views/Home.vue'
+import VideoTest from '../views/VideoTest.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home
-  },
   {
     path: '/waiting',
     name: 'waiting',
@@ -21,9 +16,24 @@ const routes = [
   },
   {
     path: '/quiz/:quizId',
-    name: 'question-show',
+    name: 'client-show',
     component: Quiz,
     props: true
+  },
+  {
+    path: '/host/:quizId',
+    name: 'host-show',
+    component: Quiz,
+    props: true
+  },
+  {
+    path: '/assets/quizzes.json',
+    name: 'quizzes'
+  },
+  {
+    path: '/videotest',
+    name: 'videotest-show',
+    component: VideoTest
   }
 ]
 
