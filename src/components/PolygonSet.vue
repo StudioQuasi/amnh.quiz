@@ -12,9 +12,9 @@
       :psize="pSize"
       :passedstyle="{
         position: 'absolute',
-        stroke: 'black',
+        stroke: getShapeStroke(shape),
         strokeWidth: 4,
-        fill: shape.color
+        fill: getShapeFill(shape)
       }"
       :tcolor="shape.color"
       :posX="getX(shape.index[0], shape.index[1])"
@@ -55,6 +55,14 @@ export default {
         color += letters[Math.floor(Math.random() * 16)]
       }
       return color
+    },
+    getShapeFill: function(_stroke) {
+      console.log(_stroke.id)
+      return '#003399'
+    },
+    getShapeStroke: function(_stroke) {
+      console.log(_stroke.id)
+      return '#000000'
     }
   },
   data() {

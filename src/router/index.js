@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Quiz from '../views/Quiz.vue'
+import QuizClient from '../views/QuizClient.vue'
 import Waiting from '../views/Waiting.vue'
 import VideoTest from '../views/VideoTest.vue'
 
@@ -12,6 +13,12 @@ const routes = [
     path: '/waiting',
     name: 'waiting',
     component: Waiting,
+    props: true
+  },
+  {
+    path: '/quiz-client/:quizId/:questionId',
+    name: 'quiz-client-show',
+    component: QuizClient,
     props: true
   },
   {

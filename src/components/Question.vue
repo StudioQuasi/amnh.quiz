@@ -1,18 +1,32 @@
 <template>
   <div>
-    <h3>{{ question.body }} ({{ question.id }})</h3>
+    <h3>{{ question.clientPrompt }}</h3>
 
-    <Answer
-      v-for="answer in question.answers"
-      :key="answer.id"
-      :answer="answer"
-      @answer-press="selectAnswer"
-    />
+    <div
+      :style="{
+        position: 'relative'
+      }"
+    >
+      <AnswerWord
+        v-for="answer in question.answers"
+        :style="{ position: 'relative' }"
+        :psize="pSize"
+        :passedstyle="{
+          stroke: getShapeStroke(answer),
+          strokeWidth: 4,
+          fill: getShapeFill(answer)
+        }"
+        :key="answer.id"
+        :answerTxt="answer.body"
+        :answer="answer"
+        @answer-press="selectAnswer"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import Answer from '@/components/Answer.vue'
+import AnswerWord from '@/components/AnswerWord.vue'
 
 import { EventBus } from '@/event-bus.js'
 
@@ -23,11 +37,12 @@ export default {
   },
   data: function() {
     return {
+      pSize: 1,
       selectedAnswerId: -1
     }
   },
   components: {
-    Answer
+    AnswerWord
   },
   methods: {
     selectAnswer(id) {
@@ -39,6 +54,14 @@ export default {
 
         EventBus.$emit('broadcast-answer', this.selectedAnswerId)
       }
+    },
+    getShapeFill: function(_stroke) {
+      console.log(_stroke)
+      return '#ffffff'
+    },
+    getShapeStroke: function(_stroke) {
+      console.log(_stroke)
+      return '#0000ff'
     }
   }
 }

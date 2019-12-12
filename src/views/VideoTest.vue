@@ -1,5 +1,32 @@
 <template>
-  <div style="position:relative">
+  <div
+    style="position:relative;background-image:url(https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg)"
+  >
+    <div
+      style="position:absolute;width:600px;height:600px;left:100px;top:0px;background-color:#008800"
+    >
+      aasdfasdf
+      <br />asdf <br />aasdfasdfasdf <br />asdf <br />asdffadsasdf
+      <br />
+    </div>
+    <video
+      id="video1"
+      autoplay
+      src="http://localhost:8080/./video/game.webm"
+      loop
+      muted
+      playsinline
+    ></video>
+    <div
+      style="position:absolute;width:600px;height:600px;left:100px;top:0px;background-color:#008800"
+    >
+      aasdfasdf
+      <br />asdf <br />aasdfasdfasdf <br />asdf <br />asdffadsasdf
+      <br />
+    </div>
+    aasdfasdf <br />asdf <br />aasdfasdfasdf <br />asdf <br />asdffadsasdf
+    <br />
+
     <button @click="myFunctionClick()">click</button>
 
     <div
@@ -34,10 +61,7 @@
         @loadeddata="onVideoLoad"
         @ended="onVideoEnd"
       >
-        <source
-          src="http://localhost:8080/./video/bear.webm"
-          type="video/webM"
-        />
+        <source src="http://localhost:8080/./video/1.webm" type="video/webM" />
       </video>
     </div>
   </div>
@@ -64,7 +88,7 @@ export default {
     onVideoEnd() {
       console.log('Video Ended : ')
       console.log(this.playerIndex)
-      this.players[this.playerIndex].style.visibility = 'hidden'
+      //this.players[this.playerIndex].style.visibility = 'hidden'
       this.playerIndex = ++this.playerIndex % 2
 
       console.log('Auto Play Video : ' + this.playerIndex)
@@ -72,7 +96,7 @@ export default {
       this.players[this.playerIndex].play()
     },
     myFunctionClick: function() {
-      this.players[this.playerIndex].style.visibility = 'hidden'
+      //this.players[this.playerIndex].style.visibility = 'hidden'
       this.playerIndex = ++this.playerIndex % 2
       this.players[this.playerIndex].style.visibility = 'visible'
 

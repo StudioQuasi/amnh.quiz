@@ -242,6 +242,7 @@ select::ms-expand {
 }
 
 .answer-body {
+  color: #000;
 }
 
 .answer-selected {

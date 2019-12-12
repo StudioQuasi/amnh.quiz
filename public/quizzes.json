@@ -1,55 +1,188 @@
 {
+  "quizTypes": [
+    {
+      "typeid": 0,
+      "name": "Color Gradient + Mosaic",
+      "prompt": "What is your favorite color?",
+      "answer": "",
+      "note": "covers all questions to select a color and show mosaic"
+    },
+    {
+      "typeid": 1,
+      "name": "Multiple Choice + Bar Graph",
+      "prompt": "Which Word best describes this color?",
+      "answer": "Which Word best describes this color?",
+      "note": "Multiple choice + bar graph"
+    },
+    {
+      "typeid": 2,
+      "name": "Color Pair",
+      "prompt": "Which color pairs best with this color?",
+      "answer": "Which color looks best next to this color?"
+    },
+    {
+      "typeid": 3,
+      "name": "Multiple Choice + Correct Answer",
+      "prompt": "Which color pairs best with this color?",
+      "answer": "Which color looks best next to this color?",
+      "note": ""
+    },
+    {
+      "typeid": 4,
+      "name": "Color Gradient + Selection",
+      "prompt": "What is your favorite color?",
+      "answer": "",
+      "note": "Color with correct answer"
+    },
+    {
+      "typeid": 5,
+      "name": "Color Wheel + Dart Board",
+      "prompt": "What color says 'Tulerdon' ?",
+      "answer": "",
+      "note": "Color with correct answer"
+    }
+  ],
   "quizzes": [
     {
-      "id": 0,
-      "name": "quiz #1",
+      "id": 1,
+      "name": "First Quiz",
       "questions": [
         {
           "id": 0,
-          "body": "which is your favorite cat?",
+          "quizType": 0,
+          "hostPrompt": "What is your favorite color?",
+          "clientPrompt": "Choose your favorite color from the collecton",
+          "hostSummary": "Responses: This week",
+          "hostVideo": ""
+        },
+        {
+          "id": 1,
+          "quizType": 1,
+          "hostPrompt": "Which word best describes this color?",
+          "clientPrompt": "Choose the word that best describes the color.",
+          "colorPrompt": "#ffcc00",
+          "hostVideo": "",
           "answers": [
             {
               "id": 0,
-              "body": "This is cat selection #1.",
-              "img": "https://www.humanesociety.org/sites/default/files/styles/1441x612/public/2018/08/kitten-440379.jpg"
+              "body": "sweet"
             },
             {
               "id": 1,
-              "body": "This is another cat that you can choose from.",
-              "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/An_up-close_picture_of_a_curious_male_domestic_shorthair_tabby_cat.jpg/1280px-An_up-close_picture_of_a_curious_male_domestic_shorthair_tabby_cat.jpg"
+              "body": "natural"
             },
             {
               "id": 2,
-              "body": "How about choosing this Scottish Fold ?",
-              "img": "https://cdn.britannica.com/s:800x1000/67/197567-131-1645A26E/Scottish-fold-cat-feline.jpg"
+              "body": "fancy"
             },
             {
               "id": 3,
-              "body": "And take a look at this guy.",
-              "img": "https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg"
+              "body": "small"
             }
           ]
         },
         {
           "id": 2,
-          "body": "Which is the best dog?",
+          "quizType": 2,
+          "hostPrompt": "Which color pairs best with this color?",
+          "clientPrompt": "Tap which of the smaller colored squares pairs best with the larger colored square.",
+          "colorPrompt": "#aa00bb",
+          "hostSummary": "Which color looks best next to this color?",
+          "hostVideo": "",
           "answers": [
             {
               "id": 0,
-              "body": "Pink",
-              "img": "blue.jpg"
+              "color": "#aa3333"
             },
             {
               "id": 1,
-              "body": "Purple",
-              "img": "red.jpg"
+              "color": "#33aa33"
             },
             {
               "id": 2,
-              "body": "Brown",
-              "img": "yellow.jpg"
+              "color": "#3333aa"
             }
           ]
+        },
+        {
+          "id": 3,
+          "quizType": 0,
+          "hostPrompt": "Which color pairs best with this sound?",
+          "clientPrompt": "Choose your favorite color from the selection.",
+          "hostSummary": "These colors represent the sound ...",
+          "hostVideo": ""
+        },
+        {
+          "id": 4,
+          "quizType": 3,
+          "hostPrompt1": "Complete this French idiom:",
+          "hostPrompt2": "means 'a forced laugh'",
+          "sentence": "a [5] laugh",
+          "clientPrompt": "Choose the word that completes the French idiom.",
+          "hostSummary": "These colors represent the sound ...",
+          "hostVideo": "",
+          "answers": [
+            {
+              "id": 0,
+              "name": "gray",
+              "color": "#c9c9c9"
+            },
+            {
+              "id": 0,
+              "name": "white",
+              "color": "#c9c9c9"
+            },
+            {
+              "id": 0,
+              "name": "blue",
+              "color": "#c9c9c9"
+            },
+            {
+              "id": 0,
+              "name": "yellow",
+              "color": "#c9c9c9",
+              "winner": true
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "quizType": 0,
+          "hostPrompt": "Which color tends to lower blood pressure & reduce appetite?",
+          "clientPrompt": "Choose the color that lowers blood pressure and reduces appetite.",
+          "hostSummary": "The color [] tends to lower blood pressure & reduce appetite.",
+          "hostVideo": "",
+          "answers": [
+            {
+              "id": 0,
+              "name": "gray",
+              "color": "#c9c9c9"
+            },
+            {
+              "id": 0,
+              "name": "white",
+              "color": "#c9c9c9"
+            },
+            {
+              "id": 0,
+              "name": "blue",
+              "color": "#c9c9c9"
+            },
+            {
+              "id": 0,
+              "name": "yellow",
+              "color": "#c9c9c9",
+              "winner": true
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "quizType": 5,
+          "hostPrompt": "What color belongs to the word \"tulerdon\" ?",
+          "clientPrompt": "Select the color you think best represents \"tulerdon\" on the colormap.",
+          "hostSummary": "Tulerdon is this color...",
+          "hostVideo": ""
         }
       ]
     }
