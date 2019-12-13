@@ -1,5 +1,11 @@
 <template>
   <div>
+    <ProgressBar
+      :pscale="100"
+      :pmargin="5"
+      :total="12"
+      :currentQuestionIndex="6"
+    />
     <h2>Question: {{ quiz.name }} ({{ quiz.id }})</h2>
 
     <Question v-bind:key="this.question.id" v-bind:question="this.question" />
@@ -9,6 +15,8 @@
 <script>
 import Question from '@/components/Question.vue'
 import QuizService from '@/services/QuizService.js'
+import ProgressBar from '@/components/ProgressBar.vue'
+
 import Pusher from 'pusher-js'
 
 import 'video.js/dist/video-js.css'
@@ -18,7 +26,8 @@ import { EventBus } from '@/event-bus.js'
 export default {
   props: ['quizId', 'questionId'],
   components: {
-    Question
+    Question,
+    ProgressBar
   },
   data() {
     return {

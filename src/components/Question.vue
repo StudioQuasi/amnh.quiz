@@ -61,7 +61,7 @@ export default {
     },
     getShapeStroke: function(_stroke) {
       console.log(_stroke)
-      return '#0000ff'
+      return '#000000'
     }
   }
 }
