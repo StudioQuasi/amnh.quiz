@@ -1,7 +1,7 @@
 <template>
   <div
     :style="{
-      position: 'absolute'
+      position: 'relative'
     }"
   >
     <svg :width="canvasSize" :height="canvasSize">
@@ -26,19 +26,20 @@ export default {
     return {}
   },
   props: {
-    psize: Number,
+    pSize: Number,
     passedstyle: Object,
     body: Number
   },
+  methods: {},
   computed: {
     canvasSize: function() {
-      return 2 * this.psize
+      return 2 * this.pSize
     },
     getPoints: function() {
       var _pts = []
 
       for (var i = 0; i < 6; i++) {
-        var point = valueToPoint(this.psize, i, 6) //arrPts[i]
+        var point = valueToPoint(this.pSize, i, 6) //arrPts[i]
         _pts.push(point.x + ',' + point.y)
       }
 

@@ -1,37 +1,81 @@
 <template>
-  <div>
+  <div
+    :style="{
+      position: 'relative'
+    }"
+  >
     <ProgressBar
-      :pscale="100"
+      :pWidth="800"
       :pmargin="5"
-      :total="12"
-      :currentQuestionIndex="6"
+      :pTotal="this.quiz.number"
+      :currentQuestionIndex="this.question.id"
     />
 
-    <h2>Question: {{ quiz.name }} ({{ quiz.id }})</h2>
+    <QuestionPrompt :body1="this.prompt1" :body2="this.prompt2" />
 
-    <ColorWheel :pRadius="300" :pSteps="12" :pColors="this.colorWheelLrg" />
+    <!--
+      Color Gradient + Mosaic
+    -->
+    <div v-if="this.question.quizType === 0">
+      <ShapePolygonSimple
+        :pSize="75"
+        :passedstyle="{
+          strokeWidth: 0,
+          fill: this.receivedColor
+        }"
+      />
 
-    <Question v-bind:key="this.question.id" v-bind:question="this.question" />
+      <ColorWheel
+        :pRadius="200"
+        :pThickness="35"
+        :pSteps="12"
+        :pColors="this.colorWheelLrg"
+      />
+    </div>
+
+    <!--
+      Multiple Choice + Bar Graph
+    -->
+    <div v-else-if="this.question.quizType === 1">
+      <ShapePolygonSimple
+        :pSize="75"
+        :passedstyle="{
+          strokeWidth: 0,
+          fill: this.question.colorPrompt
+        }"
+      />
+      <Question
+        :question="this.question"
+        :pDefaultTextColor="{ hex: '#ffffff' }"
+        :pDefaultFillColor="{ hex: '#000000' }"
+        :pDefaultStrokeColor="{ hex: '#ffffff' }"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import Question from '@/components/Question.vue'
 import QuizService from '@/services/QuizService.js'
 import ProgressBar from '@/components/ProgressBar.vue'
-import ColorWheel from '@/components/ColorWheel.vue'
-import Pusher from 'pusher-js'
+import QuestionPrompt from '@/components/QuestionPrompt.vue'
 
-import 'video.js/dist/video-js.css'
+import ColorWheel from '@/components/ColorWheel.vue'
+import ShapePolygonSimple from '@/components/ShapePolygonSimple.vue'
+
+import Question from '@/components/Question.vue'
+
+import Pusher from 'pusher-js'
 
 import { EventBus } from '@/event-bus.js'
 
 export default {
   props: ['quizId', 'questionId'],
   components: {
-    Question,
     ProgressBar,
-    ColorWheel
+    QuestionPrompt,
+    ColorWheel,
+    ShapePolygonSimple,
+    Question
   },
   data() {
     return {
@@ -42,23 +86,26 @@ export default {
 
       question: Object,
       quiz: { questions: [] },
-      colorWheelLrg: [
-        {
-          id: 0,
-          index: [1, 0],
-          color: '#ffffff'
-        }
-      ],
+      colorWheelLrg: Array,
       colorWheelSml: Array,
       quizState: Object,
       userScreenName: Number,
       userID: Number,
 
       quizIndex: Number,
-      questionIndex: Number
+      questionIndex: Number,
+
+      prompt1: '',
+      prompt2: '',
+
+      receivedColor: '#ffffff'
     }
   },
   methods: {
+    receiveColor(c) {
+      this.receivedColor = c
+      console.log('Shape Polygon. Receive : ' + c)
+    },
     handleServer(data) {
       this.quizState = data
     },
@@ -103,25 +150,20 @@ export default {
 
         this.colorWheelLrg = response.data.colorWheelLrg
         this.colorWheelSml = response.data.colorWheelSml
-      })
-      .catch(error => {
-        console.log('There was an error:', error.response)
-      })
 
-    /*
-    QuizService.createUser()
-      .then(response => {
-        console.log('Create User : ' + response.data)
+        //Set Question prompt
+        this.prompt1 = 'Your ID : 4'
+        this.prompt2 = this.question.clientPrompt
       })
       .catch(error => {
         console.log('There was an error:', error.response)
       })
-    */
 
     //Receive broadcast of answer on Event Bus
     EventBus.$on('broadcast-answer', qid =>
       QuizService.submitQuestion(qid, this.userID, this.quiz.id, this.question)
     )
+    EventBus.$on('broadcast-client-color', c => this.receiveColor(c))
   }
 }
 </script>

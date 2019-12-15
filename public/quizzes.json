@@ -46,12 +46,13 @@
     {
       "id": 1,
       "name": "First Quiz",
+      "number": 8,
       "questions": [
         {
           "id": 0,
           "quizType": 0,
           "hostPrompt": "What is your favorite color?",
-          "clientPrompt": "Choose your favorite color from the collecton",
+          "clientPrompt": "Choose your favorite color from the collection",
           "hostSummary": "Responses: This week",
           "hostVideo": ""
         },
@@ -59,8 +60,8 @@
           "id": 1,
           "quizType": 1,
           "hostPrompt": "Which word best describes this color?",
-          "clientPrompt": "Choose the word that best describes the color.",
-          "colorPrompt": "#ffcc00",
+          "clientPrompt": "Choose the word that best describes the color",
+          "colorPrompt": "#ff55ff",
           "hostVideo": "",
           "answers": [
             {
@@ -211,94 +212,195 @@
   ],
   "colorWheelLrg": [
     {
-      "id": 0,
-      "index": [1, 0],
-      "color": "#ffffff"
+      "color": "A6A8AB"
+    },
+    {
+      "color": "A6A8AB"
+    },
+    {
+      "color": "A6A8AB"
+    },
+    {
+      "color": "F1F1F2"
+    },
+    {
+      "color": "F1F1F2"
+    },
+    {
+      "color": "F1F1F2"
+    },
+    {
+      "color": "231F20"
+    },
+    {
+      "color": "231F20"
+    },
+    {
+      "color": "231F20"
+    },
+    {
+      "color": "57585B"
+    },
+    {
+      "color": "57585B"
+    },
+    {
+      "color": "57585B"
     },
     {
       "id": 1,
-      "index": [0, 1],
-      "color": "#F7942F"
+      "color": "540A32"
     },
     {
-      "id": 2,
-      "index": [1, 1],
-      "color": "#4E281C"
+      "id": 1,
+      "color": "2A083F"
     },
     {
-      "id": 3,
-      "index": [0, 2],
-      "color": "#F59DAC"
+      "id": 1,
+      "color": "1C144C"
     },
     {
-      "id": 4,
-      "index": [1, 2],
-      "color": "#F26522"
+      "id": 1,
+      "color": "111A43"
     },
     {
-      "id": 5,
-      "index": [2, 2],
-      "color": "#828383"
+      "id": 1,
+      "color": "003435"
     },
     {
-      "id": 7,
-      "index": [0, 3],
-      "color": "#EC1A23"
+      "id": 1,
+      "color": "19592A"
     },
     {
-      "id": 8,
-      "index": [1, 3],
-      "color": "#FFF200"
+      "id": 1,
+      "color": "3A5022"
     },
     {
-      "id": 9,
-      "index": [0, 4],
-      "color": "#EC207B"
+      "id": 1,
+      "color": "545621"
     },
     {
-      "id": 10,
-      "index": [2, 4],
-      "color": "#8CC63F"
+      "color": "4C3815"
     },
     {
-      "id": 11,
-      "index": [0, 5],
-      "color": "#722C7A"
+      "color": "422411"
     },
     {
-      "id": 12,
-      "index": [1, 5],
-      "color": "#03A550"
+      "color": "471414"
     },
     {
-      "id": 13,
-      "index": [0, 6],
-      "color": "#B84F9E"
+      "color": "471415"
+    },
+
+    {
+      "color": "921954"
     },
     {
-      "id": 14,
-      "index": [1, 6],
-      "color": "#203F9A"
+      "color": "4B2772"
     },
     {
-      "id": 15,
-      "index": [2, 6],
-      "color": "#43BD96"
+      "color": "312E8D"
     },
     {
-      "id": 16,
-      "index": [0, 7],
-      "color": "#7154A3"
+      "color": "1B459B"
     },
     {
-      "id": 17,
-      "index": [1, 7],
-      "color": "#007D84"
+      "color": "00696A"
     },
     {
-      "id": 18,
-      "index": [1, 8],
-      "color": "#00AEEF"
+      "color": "008D42"
+    },
+    {
+      "color": "84872E"
+    },
+    {
+      "color": "836F26"
+    },
+    {
+      "color": "986920"
+    },
+    {
+      "color": "854017"
+    },
+    {
+      "color": "8E1817"
+    },
+    {
+      "color": "8E1818"
+    },
+
+    {
+      "color": "CE0E74"
+    },
+    {
+      "color": "6D3496"
+    },
+    {
+      "color": "423997"
+    },
+    {
+      "color": "3B5BAC"
+    },
+    {
+      "color": "009899"
+    },
+    {
+      "color": "53B93F"
+    },
+    {
+      "color": "A2CF27"
+    },
+    {
+      "color": "FFD300"
+    },
+    {
+      "color": "FCA900"
+    },
+    {
+      "color": "F36408"
+    },
+    {
+      "color": "EF1616"
+    },
+    {
+      "color": "EF1617"
+    },
+
+    {
+      "color": "EB71AC"
+    },
+    {
+      "color": "A879B6"
+    },
+    {
+      "color": "7A6AB2"
+    },
+    {
+      "color": "7792CD"
+    },
+    {
+      "color": "8BD3D8"
+    },
+    {
+      "color": "9CD078"
+    },
+    {
+      "color": "9CD078"
+    },
+    {
+      "color": "FEE341"
+    },
+    {
+      "color": "FFCD5E"
+    },
+    {
+      "color": "FBAC64"
+    },
+    {
+      "color": "F47174"
+    },
+    {
+      "color": "F47175"
     }
   ]
 }

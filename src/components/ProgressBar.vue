@@ -1,7 +1,7 @@
 <template>
   <div>
     <svg
-      :width="500"
+      :width="this.pWidth"
       :height="50"
       :style="{
         position: 'relative',
@@ -10,7 +10,7 @@
       }"
     >
       <polygon
-        v-for="i in this.total"
+        v-for="i in this.pTotal"
         :key="i"
         :points="getPolygonPoints(i)"
         :style="{ fill: getColor(i) }"
@@ -19,7 +19,7 @@
 
     <ShapePolygonSimple
       :body="this.currentQuestionIndex"
-      :psize="50"
+      :pSize="50"
       :passedstyle="{
         stroke: '#FFFF01',
         strokeWidth: 2,
@@ -37,12 +37,17 @@ export default {
     return {}
   },
   props: {
-    pscale: Number,
+    pWidth: Number,
     pmargin: Number,
-    total: Number,
+    pTotal: Number,
     currentQuestionIndex: Number
   },
 
+  computed: {
+    pScale: function() {
+      return this.pWidth / this.pTotal
+    }
+  },
   methods: {
     getColor: function(_i) {
       if (_i == this.currentQuestionIndex) {
@@ -64,10 +69,10 @@ export default {
 
       for (var i = 0; i < _pts.length; i++) {
         _out.push(
-          _pts[i][0] * this.pscale +
-            (_offset - 1) * (0.875 * this.pscale + this.pmargin) +
+          _pts[i][0] * this.pScale +
+            (_offset - 1) * (0.875 * this.pScale + this.pmargin) +
             ',' +
-            _pts[i][1] * this.pscale
+            _pts[i][1] * this.pScale
         )
       }
 

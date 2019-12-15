@@ -1,9 +1,3 @@
-<!--template>
-  <div class="answer-body">
-    <h4>{{ answer.body }}</h4>
-  </div>
-</template-->
-
 <template>
   <div
     :style="{
@@ -21,20 +15,14 @@
       }"
     >
       <polygon
-        :style="passedstyle"
+        :style="containerStyle"
         :id="1"
         :points="getPoints"
         v-on:click="pressedAnswer"
       />
     </svg>
 
-    <div
-      :style="{
-        position: 'absolute',
-        left: '0px',
-        top: '0px'
-      }"
-    >
+    <div :style="textStyle">
       <h4>{{ this.answer.body }}</h4>
     </div>
   </div>
@@ -47,7 +35,8 @@ export default {
   props: {
     answerTxt: String,
     psize: Number,
-    passedstyle: Object,
+    containerStyle: Object,
+    textStyle: Object,
     answer: Object
   },
   data: function() {

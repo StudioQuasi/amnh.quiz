@@ -9,30 +9,51 @@
   >
     <svg :width="canvasSize" :height="canvasSize">
       <polygon
-        v-for="c in this.pColors"
-        :key="c.id"
-        :points="getAnyPiece(300, 300, 50, c.id)"
+        v-for="(c, index) in this.pColors"
+        :key="index"
+        :points="getAnyPiece(index)"
         :style="{
           position: 'absolute',
-          stroke: '#000000',
+          stroke: getStrokeColor(c.color),
           strokeWidth: 1,
           fill: c.color
         }"
-        v-on:click="pressedColor"
+        v-on:click="pressedColor(c.color, index)"
+      />
+      <polygon
+        :points="getAnyPiece(this.selectedColorIndex)"
+        :style="{
+          position: 'absolute',
+          stroke: '#ffffff',
+          strokeWidth: 2,
+          strokeOpacity: 1,
+          fillOpacity: 0
+        }"
       />
     </svg>
   </div>
 </template>
 
 <script>
+import { EventBus } from '@/event-bus.js'
+
 export default {
   props: {
     pRadius: Number,
+    pThickness: {
+      type: Number,
+      default: 50
+    },
     pSteps: {
       type: Number,
       default: 0
     },
-    pColors: Array
+    pColors: {
+      type: Array,
+      default: function() {
+        return []
+      }
+    }
   },
   computed: {
     canvasSize: function() {
@@ -40,89 +61,84 @@ export default {
     }
   },
   methods: {
-    pressedColor() {
-      console.log(this.id)
+    pressedColor(_key, _index) {
+      this.selectedColorIndex = _index
+      EventBus.$emit('broadcast-client-color', _key)
     },
-    getAnyPiece: function(_x, _y, _radius, _index) {
-      var _slices = this.pSteps
+    valueToPoint: function(value, _x, _y, index, total) {
+      var x = 0
+      var y = -value
+      var angle = ((Math.PI * 2) / total) * index + Math.PI / 6
 
-      console.log('$$$>>> ' + this.pSteps)
+      var cos = Math.cos(angle)
+      var sin = Math.sin(angle)
+
+      var tx = x * cos - y * sin + _x
+      var ty = x * sin + y * cos + _y
+
+      return {
+        x: tx,
+        y: ty
+      }
+    },
+    getStrokeColor: function(_c) {
+      if (_c == this.selectedColor) {
+        return '#ffffff'
+      } else {
+        return '#000000'
+      }
+    },
+    getAnyPiece: function(_index) {
+      var _slices = this.pSteps
+      var _thick = this.pThickness
 
       var _pts = []
-      var _pt
 
-      _index -= 1
       var _level = Math.floor(_index / _slices)
 
-      var _radius1 = _level * _radius
-      var _radius2 = (1 + _level) * _radius
+      var _radius1 = _level * _thick
+      var _radius2 = (1 + _level) * _thick
 
-      //_pts.push(_x + ',' + _y)
-      _pt = valueToPoint(_radius1, _x, _y, _index, 12)
+      var _pt = this.valueToPoint(
+        _radius1,
+        this.pRadius,
+        this.pRadius,
+        _index,
+        12
+      )
       _pts.push(_pt.x + ',' + _pt.y)
 
-      _pt = valueToPoint(_radius2, _x, _y, _index, 12)
+      _pt = this.valueToPoint(_radius2, this.pRadius, this.pRadius, _index, 12)
       _pts.push(_pt.x + ',' + _pt.y)
 
-      _pt = valueToPoint(_radius2, _x, _y, _index + 1, 12)
+      _pt = this.valueToPoint(
+        _radius2,
+        this.pRadius,
+        this.pRadius,
+        _index + 1,
+        12
+      )
       _pts.push(_pt.x + ',' + _pt.y)
 
       if (_level > 0) {
-        _pt = valueToPoint(_radius1, _x, _y, _index + 1, 12)
+        _pt = this.valueToPoint(
+          _radius1,
+          this.pRadius,
+          this.pRadius,
+          _index + 1,
+          12
+        )
         _pts.push(_pt.x + ',' + _pt.y)
       }
-
-      console.log('DRAW PIE ' + _index + ' : ')
-      console.log(_pts)
       return _pts
-    },
-    getShapeStroke: function() {
-      return '#ffffff'
     }
   },
   data() {
     return {
-      thing: [0, 1, 2],
-      pstyle: {
-        position: 'absolute',
-        stroke: 'orange',
-        strokeWidth: 4,
-        fill: 'purple'
-      },
-      tColors: [
-        {
-          id: 2,
-          index: [1, 1],
-          color: '#4E281C'
-        }
-      ]
+      selectedColorIndex: Number
     }
   },
-  mounted() {
-    console.log('>>> MOUNTED')
-    console.log(this.pSteps)
-    console.log('1>')
-    console.log(this.pColors)
-    console.log('2>')
-    console.log(this.pColors.colors)
-  }
-}
-
-function valueToPoint(value, _x, _y, index, total) {
-  var x = 0
-  var y = -value
-  var angle = ((Math.PI * 2) / total) * index + Math.PI / 6
-
-  var cos = Math.cos(angle)
-  var sin = Math.sin(angle)
-
-  var tx = x * cos - y * sin + _x
-  var ty = x * sin + y * cos + _y
-
-  return {
-    x: tx,
-    y: ty
-  }
+  mounted() {}
 }
 </script>
 

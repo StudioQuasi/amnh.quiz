@@ -1,69 +1,99 @@
 <template>
   <div>
-    <h3>{{ question.clientPrompt }}</h3>
-
     <div
+      v-for="(answer, index) in question.answers"
+      :key="answer.id"
       :style="{
         position: 'relative'
       }"
     >
-      <AnswerWord
-        v-for="answer in question.answers"
-        :style="{ position: 'relative' }"
-        :psize="pSize"
-        :passedstyle="{
-          stroke: getShapeStroke(answer),
-          strokeWidth: 4,
-          fill: getShapeFill(answer)
+      <svg
+        :width="225"
+        :height="50"
+        :style="{
+          position: 'relative',
+          padding: '0px',
+          left: '0px',
+          top: '0px'
         }"
-        :key="answer.id"
-        :answerTxt="answer.body"
-        :answer="answer"
-        @answer-press="selectAnswer"
-      />
+      >
+        <polygon
+          :style="{
+            stroke: getStrokeColor(answer),
+            strokeWidth: 2,
+            fill: getFillColor(answer)
+          }"
+          :id="1"
+          :points="getPoints"
+          v-on:click="pressedWord(answer, index)"
+        />
+      </svg>
+
+      <div
+        :style="{
+          color: getTextColor(answer),
+          position: 'absolute',
+          left: '10px',
+          top: '-20px'
+        }"
+      >
+        <h4>{{ answer.body }}</h4>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import AnswerWord from '@/components/AnswerWord.vue'
-
 import { EventBus } from '@/event-bus.js'
+
+//import AnswerWord from '@/components/AnswerWord.vue'
 
 export default {
   props: {
     question: Object,
-    test: Object
+    pDefaultTextColor: Object,
+    pDefaultFillColor: Object,
+    pDefaultStrokeColor: Object
   },
   data: function() {
     return {
       pSize: 1,
-      selectedAnswerId: -1
+      selectedAnswer: Object
     }
   },
-  components: {
-    AnswerWord
+  components: {},
+  computed: {
+    getPoints: function() {
+      var _arrpts = ['0, 0', '200, 0', '225, 25', '200, 50', '0, 50', '0, 0']
+      var _t = _arrpts.join(' ')
+
+      return _t
+    }
   },
   methods: {
-    selectAnswer(id) {
-      if (this.selectedAnswerId == -1) {
-        this.selectedAnswerId = id
+    pressedWord(_answer, _index) {
+      this.selectedAnswer = _answer
 
-        //this.$refs.me.receiveAnswer(1)
-        console.log('SELECT ANSWER')
-
-        EventBus.$emit('broadcast-answer', this.selectedAnswerId)
-      }
+      console.log('SELECT ANSWER' + _index)
+      console.log(this.selectedAnswer.id)
+      console.log(_answer.id)
+      EventBus.$emit('broadcast-client-word', _answer.id)
     },
-    getShapeFill: function(_stroke) {
-      console.log(_stroke)
-      return '#ffffff'
+    getFillColor: function(_answer) {
+      if (_answer == this.selectedAnswer) {
+        return this.question.colorPrompt
+      } else return this.pDefaultFillColor.hex
     },
-    getShapeStroke: function(_stroke) {
-      console.log(_stroke)
-      return '#000000'
+    getStrokeColor: function(_answer) {
+      if (_answer == this.selectedAnswer) return this.question.colorPrompt
+      else return this.pDefaultStrokeColor.hex
+    },
+    getTextColor: function(_answer) {
+      if (_answer == this.selectedAnswer) return '#000000'
+      else return this.pDefaultTextColor.hex
     }
-  }
+  },
+  mounted() {}
 }
 </script>
 
