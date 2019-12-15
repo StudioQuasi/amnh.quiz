@@ -51,6 +51,11 @@
         :pDefaultStrokeColor="{ hex: '#ffffff' }"
       />
     </div>
+
+    <!--
+      Color Pair
+    -->
+    <ColorPair :question="this.question" :pSize="150" :pMargin="10" />
   </div>
 </template>
 
@@ -58,13 +63,12 @@
 import QuizService from '@/services/QuizService.js'
 import ProgressBar from '@/components/ProgressBar.vue'
 import QuestionPrompt from '@/components/QuestionPrompt.vue'
+import Pusher from 'pusher-js'
 
 import ColorWheel from '@/components/ColorWheel.vue'
 import ShapePolygonSimple from '@/components/ShapePolygonSimple.vue'
-
 import Question from '@/components/Question.vue'
-
-import Pusher from 'pusher-js'
+import ColorPair from '@/components/ColorPair.vue'
 
 import { EventBus } from '@/event-bus.js'
 
@@ -75,7 +79,8 @@ export default {
     QuestionPrompt,
     ColorWheel,
     ShapePolygonSimple,
-    Question
+    Question,
+    ColorPair
   },
   data() {
     return {
