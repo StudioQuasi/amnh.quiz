@@ -61,8 +61,6 @@ export default {
         [1, 0.125],
         [0.875, 0]
       ]
-      console.log('OUT : ')
-      console.log(_offset * this.pscale)
 
       for (var i = 0; i < _pts.length; i++) {
         _out.push(

@@ -6,7 +6,10 @@
       :total="12"
       :currentQuestionIndex="6"
     />
+
     <h2>Question: {{ quiz.name }} ({{ quiz.id }})</h2>
+
+    <ColorWheel :pRadius="300" :pSteps="12" :pColors="this.colorWheelLrg" />
 
     <Question v-bind:key="this.question.id" v-bind:question="this.question" />
   </div>
@@ -16,7 +19,7 @@
 import Question from '@/components/Question.vue'
 import QuizService from '@/services/QuizService.js'
 import ProgressBar from '@/components/ProgressBar.vue'
-
+import ColorWheel from '@/components/ColorWheel.vue'
 import Pusher from 'pusher-js'
 
 import 'video.js/dist/video-js.css'
@@ -27,18 +30,26 @@ export default {
   props: ['quizId', 'questionId'],
   components: {
     Question,
-    ProgressBar
+    ProgressBar,
+    ColorWheel
   },
   data() {
     return {
       pNum: 5,
       pSize: 100,
-
       pcolor2: 'blue',
       psize2: 50,
 
       question: Object,
       quiz: { questions: [] },
+      colorWheelLrg: [
+        {
+          id: 0,
+          index: [1, 0],
+          color: '#ffffff'
+        }
+      ],
+      colorWheelSml: Array,
       quizState: Object,
       userScreenName: Number,
       userID: Number,
@@ -84,15 +95,14 @@ export default {
 
     QuizService.getQuestions()
       .then(response => {
-        console.log('DATA >>>' + response.data)
-        console.log('QUIZZES >>>' + response.data.quizzes)
-        console.log('LENGTH >>>' + response.data.quizzes.length)
-
         console.log('quiz index ' + this.quizIndex)
         console.log('question index ' + this.questionIndex)
 
         this.quiz = response.data.quizzes[this.quizIndex]
         this.question = this.quiz.questions[this.questionIndex]
+
+        this.colorWheelLrg = response.data.colorWheelLrg
+        this.colorWheelSml = response.data.colorWheelSml
       })
       .catch(error => {
         console.log('There was an error:', error.response)

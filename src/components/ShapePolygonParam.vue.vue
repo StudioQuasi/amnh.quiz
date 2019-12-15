@@ -46,30 +46,8 @@ export default {
       return _t
     }
   },
-  methods: {
-    pressedAnswer() {
-      console.log(this.id)
-    }
-  },
+  methods: {},
   components: {}
-}
-
-function valueToPoint(value, index, total) {
-  var x = 0
-  var y = -value
-  var angle = ((Math.PI * 2) / total) * index + Math.PI / 6
-
-  console.log('*** Value : ' + angle)
-  var cos = Math.cos(angle)
-  var sin = Math.sin(angle)
-
-  var tx = x * cos - y * sin + value
-  var ty = x * sin + y * cos + value
-
-  return {
-    x: tx,
-    y: ty
-  }
 }
 </script>
 

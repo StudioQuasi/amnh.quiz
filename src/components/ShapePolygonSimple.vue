@@ -28,7 +28,7 @@ export default {
   props: {
     psize: Number,
     passedstyle: Object,
-    body: String
+    body: Number
   },
   computed: {
     canvasSize: function() {

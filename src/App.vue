@@ -19,6 +19,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  background-color: #000;
 }
 #app {
   box-sizing: border-box;
@@ -265,6 +266,18 @@ select::ms-expand {
 }
 .event-card > .title {
   margin: 0;
+}
+
+.progressLast {
+  color: #ff0000;
+}
+
+.progressCurrent {
+  color: #00ff00;
+}
+
+.progressNext {
+  color: #0000ff;
 }
 
 .event-link {
