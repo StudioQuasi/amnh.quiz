@@ -104,11 +104,17 @@ export default {
         this.pRadius,
         this.pRadius,
         _index,
-        12
+        _slices
       )
       _pts.push(_pt.x + ',' + _pt.y)
 
-      _pt = this.valueToPoint(_radius2, this.pRadius, this.pRadius, _index, 12)
+      _pt = this.valueToPoint(
+        _radius2,
+        this.pRadius,
+        this.pRadius,
+        _index,
+        _slices
+      )
       _pts.push(_pt.x + ',' + _pt.y)
 
       _pt = this.valueToPoint(
@@ -116,7 +122,7 @@ export default {
         this.pRadius,
         this.pRadius,
         _index + 1,
-        12
+        _slices
       )
       _pts.push(_pt.x + ',' + _pt.y)
 
@@ -126,7 +132,7 @@ export default {
           this.pRadius,
           this.pRadius,
           _index + 1,
-          12
+          _slices
         )
         _pts.push(_pt.x + ',' + _pt.y)
       }

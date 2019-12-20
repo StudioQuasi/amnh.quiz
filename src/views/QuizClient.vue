@@ -19,18 +19,25 @@
     <div v-if="this.question.quizType === 0">
       <ShapePolygonSimple
         :pSize="75"
-        :passedstyle="{
-          strokeWidth: 0,
-          fill: this.receivedColor
-        }"
+        :pTextColor="{ hex: '#ffffff' }"
+        :pFillColor="{ hex: getHexagonFillColor() }"
+        :pStrokeColor="{ hex: getHexagonStrokeColor() }"
+        :pBody="getIDString"
       />
 
-      <ColorWheel
-        :pRadius="200"
-        :pThickness="35"
-        :pSteps="12"
-        :pColors="this.colorWheelLrg"
-      />
+      <div
+        :style="{
+          position: 'absolute',
+          left: '350px'
+        }"
+      >
+        <ColorWheel
+          :pRadius="200"
+          :pThickness="35"
+          :pSteps="12"
+          :pColors="this.colorWheelLrg"
+        />
+      </div>
     </div>
 
     <!--
@@ -39,11 +46,53 @@
     <div v-else-if="this.question.quizType === 1">
       <ShapePolygonSimple
         :pSize="75"
-        :passedstyle="{
-          strokeWidth: 0,
-          fill: this.question.colorPrompt
-        }"
+        :pTextColor="{ hex: this.question.colorPrompt }"
+        :pFillColor="{ hex: this.question.colorPrompt }"
+        :pStrokeColor="{ hex: this.question.colorPrompt }"
       />
+      <div
+        :style="{
+          position: 'absolute',
+          left: '350px'
+        }"
+      >
+        <Question
+          :question="this.question"
+          :pDefaultTextColor="{ hex: '#ffffff' }"
+          :pDefaultFillColor="{ hex: '#000000' }"
+          :pDefaultStrokeColor="{ hex: '#ffffff' }"
+        />
+      </div>
+    </div>
+
+    <!--
+      Color Pair
+    -->
+    <div v-else-if="this.question.quizType === 2">
+      <ShapeColorPair
+        :pSizeOutside="200"
+        :pSizeInside="75"
+        :pColorOutside="{ hex: this.question.colorPrompt }"
+        :pSelectedColor="{ hex: this.receivedColor }"
+      />
+
+      <div
+        :style="{
+          position: 'absolute',
+          left: '350px',
+          top: '0px'
+        }"
+      >
+        <ColorPair :question="this.question" :pSize="150" :pMargin="10" />
+      </div>
+    </div>
+
+    <!--
+      Multiple Choice + Corrct Answer
+    -->
+    <div v-else-if="this.question.quizType === 3">
+      <QuestionFillinBlank :question="this.question" />
+
       <Question
         :question="this.question"
         :pDefaultTextColor="{ hex: '#ffffff' }"
@@ -53,9 +102,31 @@
     </div>
 
     <!--
-      Color Pair
+      Multiple Choice + Corrct Answer
     -->
-    <ColorPair :question="this.question" :pSize="150" :pMargin="10" />
+    <div v-if="this.question.quizType === 0">
+      <ShapePolygonSimple
+        :pSize="75"
+        :pTextColor="{ hex: '#ffffff' }"
+        :pFillColor="{ hex: getHexagonFillColor() }"
+        :pStrokeColor="{ hex: getHexagonStrokeColor() }"
+        :pBody="getIDString"
+      />
+
+      <div
+        :style="{
+          position: 'absolute',
+          left: '350px'
+        }"
+      >
+        <ColorWheel
+          :pRadius="200"
+          :pThickness="200"
+          :pSteps="4"
+          :pColors="this.colorWheelSml"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -69,6 +140,8 @@ import ColorWheel from '@/components/ColorWheel.vue'
 import ShapePolygonSimple from '@/components/ShapePolygonSimple.vue'
 import Question from '@/components/Question.vue'
 import ColorPair from '@/components/ColorPair.vue'
+import ShapeColorPair from '@/components/ShapeColorPair.vue'
+import QuestionFillinBlank from '@/components/QuestionFillinBlank.vue'
 
 import { EventBus } from '@/event-bus.js'
 
@@ -80,22 +153,22 @@ export default {
     ColorWheel,
     ShapePolygonSimple,
     Question,
-    ColorPair
+    ColorPair,
+    QuestionFillinBlank,
+    ShapeColorPair
   },
   data() {
     return {
-      pNum: 5,
-      pSize: 100,
-      pcolor2: 'blue',
-      psize2: 50,
-
       question: Object,
       quiz: { questions: [] },
-      colorWheelLrg: Array,
-      colorWheelSml: Array,
+
       quizState: Object,
       userScreenName: Number,
       userID: Number,
+
+      //Color Wheel
+      colorWheelLrg: Array,
+      colorWheelSml: Array,
 
       quizIndex: Number,
       questionIndex: Number,
@@ -103,13 +176,26 @@ export default {
       prompt1: '',
       prompt2: '',
 
-      receivedColor: '#ffffff'
+      receivedColor: '#000000',
+      isAnswered: false
     }
   },
   methods: {
     receiveColor(c) {
+      this.isAnswered = true
+
       this.receivedColor = c
       console.log('Shape Polygon. Receive : ' + c)
+    },
+    getHexagonFillColor() {
+      if (this.isAnswered) return this.receivedColor
+      else return '#393939'
+    },
+    getHexagonStrokeColor() {
+      return '#ffffff'
+    },
+    getHexagonBody() {
+      return 'As fd ss'
     },
     handleServer(data) {
       this.quizState = data
@@ -131,6 +217,9 @@ export default {
     }
   },
   computed: {
+    getIDString: function() {
+      return this.userID
+    },
     dstate() {
       return this.tstate
     }
@@ -145,6 +234,8 @@ export default {
 
     console.log('- QUIZ ID ' + this.quizIndex)
 
+    this.userID = '12'
+
     QuizService.getQuestions()
       .then(response => {
         console.log('quiz index ' + this.quizIndex)
@@ -157,7 +248,7 @@ export default {
         this.colorWheelSml = response.data.colorWheelSml
 
         //Set Question prompt
-        this.prompt1 = 'Your ID : 4'
+        this.prompt1 = 'Your ID : ' + this.userID
         this.prompt2 = this.question.clientPrompt
       })
       .catch(error => {
@@ -165,7 +256,7 @@ export default {
       })
 
     //Receive broadcast of answer on Event Bus
-    EventBus.$on('broadcast-answer', qid =>
+    EventBus.$on('broadcast-client-word', qid =>
       QuizService.submitQuestion(qid, this.userID, this.quiz.id, this.question)
     )
     EventBus.$on('broadcast-client-color', c => this.receiveColor(c))

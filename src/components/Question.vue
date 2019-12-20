@@ -2,7 +2,7 @@
   <div>
     <div
       v-for="(answer, index) in question.answers"
-      :key="answer.id"
+      :key="index"
       :style="{
         position: 'relative'
       }"
@@ -58,6 +58,7 @@ export default {
   data: function() {
     return {
       pSize: 1,
+      showColors: true,
       selectedAnswer: Object
     }
   },
@@ -81,16 +82,36 @@ export default {
     },
     getFillColor: function(_answer) {
       if (_answer == this.selectedAnswer) {
-        return this.question.colorPrompt
-      } else return this.pDefaultFillColor.hex
+        if (_answer.color) {
+          return _answer.color
+        } else {
+          return this.question.colorPrompt
+        }
+      } else {
+        return this.pDefaultFillColor.hex
+      }
     },
     getStrokeColor: function(_answer) {
-      if (_answer == this.selectedAnswer) return this.question.colorPrompt
-      else return this.pDefaultStrokeColor.hex
+      if (_answer == this.selectedAnswer) {
+        if (_answer.color) {
+          return '#ffffff'
+        } else {
+          return this.question.colorPrompt
+        }
+      } else if (_answer.color) {
+        return _answer.color
+      } else return this.pDefaultStrokeColor.hex
     },
     getTextColor: function(_answer) {
-      if (_answer == this.selectedAnswer) return '#000000'
-      else return this.pDefaultTextColor.hex
+      if (_answer == this.selectedAnswer) {
+        if (_answer.color) {
+          return _answer.selectedColor
+        } else {
+          return '#000000'
+        }
+      } else if (_answer.color) {
+        return _answer.color
+      } else return this.pDefaultTextColor.hex
     }
   },
   mounted() {}

@@ -1,21 +1,30 @@
 <template>
   <div
     :style="{
-      position: 'relative'
+      position: 'absolute'
     }"
   >
     <svg :width="canvasSize" :height="canvasSize">
-      <polygon :id="1" :points="getPoints" :style="passedstyle" />
+      <polygon
+        :id="1"
+        :points="getPoints"
+        :style="{
+          strokeWidth: 2,
+          fill: this.pFillColor.hex,
+          stroke: this.pStrokeColor.hex
+        }"
+      />
     </svg>
 
     <div
       :style="{
         position: 'absolute',
-        left: '33px',
-        top: '-22px'
+        left: textLeft,
+        top: textTop,
+        color: this.pTextColor.hex
       }"
     >
-      <h1>{{ this.body }}</h1>
+      <h2>{{ this.pBody }}</h2>
     </div>
   </div>
 </template>
@@ -27,11 +36,22 @@ export default {
   },
   props: {
     pSize: Number,
-    passedstyle: Object,
-    body: Number
+    pBody: {
+      type: String,
+      default: ''
+    },
+    pTextColor: Object,
+    pFillColor: Object,
+    pStrokeColor: Object
   },
   methods: {},
   computed: {
+    textLeft: function() {
+      return 0.3 * this.pSize + 'px'
+    },
+    textTop: function() {
+      return -0.3 * this.pSize + 'px'
+    },
     canvasSize: function() {
       return 2 * this.pSize
     },
@@ -46,6 +66,12 @@ export default {
       var _t = _pts.join(' ')
       return _t
     }
+  },
+  mounted() {
+    console.log('MOUNTED')
+    console.log(this.pBody)
+    console.log(this.pFillColor)
+    console.log(this.pSize)
   }
 }
 

@@ -285,4 +285,8 @@ select::ms-expand {
   text-decoration: none;
   font-weight: 100;
 }
+
+.clientQuestionPrompt {
+  color: #ffffff;
+}
 </style>

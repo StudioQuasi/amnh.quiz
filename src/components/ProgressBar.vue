@@ -1,11 +1,15 @@
 <template>
-  <div>
+  <div
+    :style="{
+      position: 'relative'
+    }"
+  >
     <svg
       :width="this.pWidth"
       :height="50"
       :style="{
         position: 'relative',
-        left: '0px',
+        left: barOffset,
         top: '0px'
       }"
     >
@@ -13,19 +17,30 @@
         v-for="i in this.pTotal"
         :key="i"
         :points="getPolygonPoints(i)"
-        :style="{ fill: getColor(i) }"
+        :style="{
+          fill: getColor(i),
+          position: 'absolute',
+          left: '0px',
+          top: '0px'
+        }"
       />
     </svg>
 
-    <ShapePolygonSimple
-      :body="this.currentQuestionIndex"
-      :pSize="50"
-      :passedstyle="{
-        stroke: '#FFFF01',
-        strokeWidth: 2,
-        fill: '#FFFF01'
+    <div
+      :style="{
+        position: 'absolute',
+        left: '0px',
+        top: '0px'
       }"
-    />
+    >
+      <ShapePolygonSimple
+        :pBody="questionWord"
+        :pSize="40"
+        :pTextColor="{ hex: '#000000' }"
+        :pFillColor="{ hex: '#FFFF01' }"
+        :pStrokeColor="{ hex: '#FFFF01' }"
+      />
+    </div>
   </div>
 </template>
 
@@ -46,6 +61,12 @@ export default {
   computed: {
     pScale: function() {
       return this.pWidth / this.pTotal
+    },
+    questionWord: function() {
+      return 'Q' + this.currentQuestionIndex
+    },
+    barOffset: function() {
+      return Math.floor((0.65 * this.pWidth) / this.pTotal) + 'px'
     }
   },
   methods: {

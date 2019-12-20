@@ -87,7 +87,7 @@
           "quizType": 2,
           "hostPrompt": "Which color pairs best with this color?",
           "clientPrompt": "Tap which of the smaller colored squares pairs best with the larger colored square.",
-          "colorPrompt": "#aa00bb",
+          "colorPrompt": "#654321",
           "hostSummary": "Which color looks best next to this color?",
           "hostVideo": "",
           "answers": [
@@ -118,30 +118,34 @@
           "quizType": 3,
           "hostPrompt1": "Complete this French idiom:",
           "hostPrompt2": "means 'a forced laugh'",
-          "sentence": "a [5] laugh",
+          "sentence": "a $answer laugh",
           "clientPrompt": "Choose the word that completes the French idiom.",
           "hostSummary": "These colors represent the sound ...",
           "hostVideo": "",
           "answers": [
             {
               "id": 0,
-              "name": "gray",
-              "color": "#c9c9c9"
-            },
-            {
-              "id": 0,
-              "name": "white",
-              "color": "#c9c9c9"
-            },
-            {
-              "id": 0,
-              "name": "blue",
-              "color": "#c9c9c9"
-            },
-            {
-              "id": 0,
-              "name": "yellow",
+              "body": "gray",
               "color": "#c9c9c9",
+              "selectedColor": "#000000"
+            },
+            {
+              "id": 1,
+              "body": "white",
+              "color": "#ffffff",
+              "selectedColor": "#000000"
+            },
+            {
+              "id": 2,
+              "body": "blue",
+              "color": "#0000ff",
+              "selectedColor": "#ffffff"
+            },
+            {
+              "id": 3,
+              "body": "yellow",
+              "color": "#ffff00",
+              "selectedColor": "#000000",
               "winner": true
             }
           ]

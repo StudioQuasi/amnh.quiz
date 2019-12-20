@@ -22,19 +22,6 @@
         :y="boxOffset(index)"
         v-on:click="pressedColor(answer)"
       />
-
-      <!--polygon
-        v-for="(answer, index) in question.answers"
-        :key="answer.id"
-        :style="{
-          stroke: getStrokeColor(answer),
-          strokeWidth: 0,
-          fill: getFillColor(answer)
-        }"
-        :id="1"
-        :points="getPoints"
-        v-on:click="pressedColor(answer, index)"
-      /-->
     </svg>
   </div>
 </template>
@@ -69,8 +56,8 @@ export default {
       this.selectedAnswer = _answer
 
       console.log(this.selectedAnswer.id)
-      console.log(_answer.id)
-      EventBus.$emit('broadcast-client-color', _answer.id)
+      console.log(_answer.color)
+      EventBus.$emit('broadcast-client-color', _answer.color)
     },
     getFillColor: function(_answer) {
       if (_answer == this.selectedAnswer) {
